@@ -40,13 +40,36 @@ public class Coord implements Comparable<Coord>{
 	 */
 	public static boolean coordonnees_valides(Coord coord){
 
-		boolean ret = false;
-
 		// TODO Atelier 1
+		return ( 'a'           <= coord.colonne
+		 && coord.colonne <  'a' + MAX
+		 && 1             <= coord.ligne
+		 && coord.ligne   < MAX);
 		
-		return ret;
 	}
 
+	
+	//
+	@Override
+	public boolean equals(Object o)
+	{
+		//Si notre objet o est déjà notre object actuel pas besoin de comparer, c'est true
+		if (o == this)
+			return true;
+		
+		
+		//Si jamais Object o n'est pas un Coord, on retourne false
+		if (!(o instanceof Coord)) {
+            return false;
+        }
+         
+        // On cast donc o en Coord pour les comparer
+        Coord c = (Coord) o;
+         
+        // Enfin, on compare les valeurs
+        return c.colonne == this.colonne
+        	&& c.ligne   == this.ligne;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
@@ -58,12 +81,14 @@ public class Coord implements Comparable<Coord>{
 	 * ainsi le N° 1 correspond à la Coord ['a', 10], le N° 100 correspond à la Coord ['j', 1]  
 	 */
 	@Override
-	public int compareTo(Coord o) {
-		int ret = 999;
+	public int compareTo(Coord o) {		
+		if(o.colonne < this.colonne)
+			return 1;
 		
-		// TODO Atelier 1
+		if(o.colonne > this.colonne)
+			return -1;
 		
-		return ret ;
+		return o.ligne - this.ligne;
 	}
 
 }

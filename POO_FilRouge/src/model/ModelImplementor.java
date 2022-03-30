@@ -29,38 +29,38 @@ public class ModelImplementor {
 	}
 
 	public PieceSquareColor getPieceColor(Coord coord) {
-		PieceSquareColor color = null;
-
-		// TODO Atelier 1
+		var piece = findPiece(coord);	
 		
-		return color;
+		if(piece == null)
+			return null;
+		
+		return piece.getPieceColor();
 	}
 
 	public boolean isPiecehere(Coord coord) {
-		boolean isPiecehere = false;
-
-		// TODO Atelier 1
-		
-		return isPiecehere;
+		return findPiece(coord) != null;
 	}
 
 	public boolean isMovePieceOk(Coord initCoord, Coord targetCoord, boolean isPieceToTake) {
 
-		boolean isMovePieceOk = false;
-
-		// TODO Atelier 1
+		var piece = findPiece(initCoord);	
 		
-		return isMovePieceOk;
+		if(piece == null)
+			return false;
+		
+		return piece.isMoveOk(targetCoord, isPieceToTake);
 	}
 
 
 	public boolean movePiece(Coord initCoord, Coord targetCoord) {
 
-		boolean isMovePieceDone = false;
-
-		// TODO Atelier 1
+		var piece = findPiece(initCoord);	
 		
-		return isMovePieceDone;
+		if(piece == null)
+			return false;
+		
+		piece.move(targetCoord);
+		return true;
 	}
 
 	public void removePiece(Coord pieceToTakeCoord) {
@@ -87,7 +87,15 @@ public class ModelImplementor {
 		 
 		PieceModel findPiece = null;
 
-		// TODO Atelier 1
+		for (PieceModel piece : pieces)
+		{
+			if(piece.getColonne() == coord.getColonne()
+			&& piece.getLigne() == coord.getLigne())
+			{
+				findPiece = piece;
+				break;
+			}
+		}
 		
 		return findPiece;
 	}

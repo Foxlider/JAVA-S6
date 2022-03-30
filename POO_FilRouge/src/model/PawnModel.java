@@ -1,6 +1,7 @@
 package model;
 
 
+import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,44 +15,38 @@ public class PawnModel implements PieceModel{
 	public PawnModel(Coord coord, PieceSquareColor pieceColor) {
 		super();
 
-		// TODO Atelier 1
+		this.coord = coord;
+		this.pieceColor = pieceColor;
 
 	}
 
 	@Override
-	public char getColonne() {
-		char colonne = ' ';
+	public char getColonne() 
+	{
+		if(coord == null)
+			return ' ';
 		
-		// TODO Atelier 1
-
-		return colonne;
+		return coord.getColonne();
 	}
 
 	@Override
-	public int getLigne() {
-		int ligne = -1;
+	public int getLigne() 
+	{
+		if(coord == null)
+			return -1;
 		
-		// TODO Atelier 1
-
-		return ligne;
+		return coord.getLigne();
 	}
 
 	@Override
-	public boolean hasThisCoord(Coord coord) {
-		boolean hasThisCoord = false;
-		
-		// TODO Atelier 1
-
-		return hasThisCoord;
+	public boolean hasThisCoord(Coord c) 
+	{
+		return coord.equals(c);
 	}
 
 	@Override
 	public PieceSquareColor getPieceColor() {
-		PieceSquareColor color = null;
-		
-		// TODO Atelier 1
-
-		return color;	
+		return pieceColor;	
 	}
 
 	/* (non-Javadoc)
@@ -60,26 +55,30 @@ public class PawnModel implements PieceModel{
 	@Override
 	public String toString() {
 		String st = null;
-
-		// TODO Atelier 1
-
+		
+		var col = pieceColor;
+		var colC = (pieceColor == PieceSquareColor.BLACK) ? 'B': 'W';
+		var cln =  getColonne();
+		var lin = getLigne();
+		
+		st = String.format("[%c[%d,%c]]", colC, lin, cln);
+				
 		return st;
 	}
 
 	@Override
 	public void move(Coord coord) {
 
-		// TODO Atelier 1
-
+		this.coord = coord;
 	}
 
 	@Override
 	public boolean isMoveOk(Coord targetCoord, boolean isPieceToCapture) {
-		boolean ret = false;
-
-		// TODO Atelier 1
-
-		return ret;
+		var dist = isPieceToCapture ? 2 : 1;
+		var colDiff = Math.abs(getColonne() - targetCoord.getColonne());
+		var linDiff = Math.abs(getLigne() - targetCoord.getLigne());
+		
+		return (linDiff == dist && colDiff == dist);
 	}
 
 	@Override
