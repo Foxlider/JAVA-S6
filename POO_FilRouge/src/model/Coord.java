@@ -41,11 +41,10 @@ public class Coord implements Comparable<Coord>{
 	public static boolean coordonnees_valides(Coord coord){
 
 		// TODO Atelier 1
-		return ( 'a'           <= coord.colonne
-		 && coord.colonne <  'a' + MAX
-		 && 1             <= coord.ligne
-		 && coord.ligne   < MAX);
-		
+		return ( coord.colonne >= 'a'
+			  && coord.colonne <  'a' + MAX
+			  && coord.ligne   >= 1
+			  && coord.ligne   <  MAX);
 	}
 
 	
