@@ -142,9 +142,31 @@ public class Controller implements Mediator, BoardGame<Integer>, EventHandler<Mo
 	@Override
 	public OutputModelData<Integer> moveCapturePromote(Integer toMovePieceIndex, Integer targetSquareIndex) {
 
-		OutputModelData<Integer> outputControllerData = null;
+		OutputModelData<Integer> 	outputControllerData 	= null;
+		OutputModelData<Coord> 		outputModelData 		= null;
+		InputViewData<Integer> 		inputViewData 			= null; 
 
+		
 		// TODO atelier 2
+		if(model == null)
+			return null;
+		
+		Coord coordPiece = transformIndexToCoord(toMovePieceIndex);
+		Coord coordTgt = transformIndexToCoord(targetSquareIndex);
+		
+		outputModelData  = model.moveCapturePromote(coordPiece, coordTgt);
+		
+		if (!outputModelData.isMoveDone || view == null)
+			return null;
+		
+		inputViewData = new InputViewData<Integer>(
+				toMovePieceIndex, 
+				targetSquareIndex, 
+				transformCoordToIndex(outputModelData.capturedPieceCoord), 
+				transformCoordToIndex(outputModelData.promotedPieceCoord), 
+				outputModelData.promotedPieceColor);
+
+		view.actionOnGui(inputViewData);
 
 		// Inutile de reconstituer un objetOutputModelData<Integer>, aucun client ne le récupère en mode local
 		return outputControllerData;
