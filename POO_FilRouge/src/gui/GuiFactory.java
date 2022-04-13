@@ -37,8 +37,6 @@ public class GuiFactory {
 	 * la case en bas à gauche est noire
 	 */
 	public static BorderPane createSquare(int col, int ligne) {
-		
-		BorderPane square = null;
 		PieceSquareColor squareColor;
 
 		// sélection de la couleur de la case
@@ -47,14 +45,8 @@ public class GuiFactory {
 		} else {
 			squareColor = PieceSquareColor.BLACK;
 		}
-		square = new BorderPane();
 		
-		// la couleur est définie par les valeurs par défaut de configuration
-		Color color = PieceSquareColor.BLACK.equals(squareColor) ? GuiConfig.CASEBLACK : GuiConfig.CASEWHITE;
-		square.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
-		square.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-		
-		return square;
+		return new SquareGui(squareColor);
 	}
 
 	/**
@@ -77,8 +69,7 @@ public class GuiFactory {
 		}
 		if (pieceColor != null) {
 			image = GuiFactory.createImage(pieceColor, true);
-			pieceGui = new ImageView();
-			pieceGui.setImage(image);
+			pieceGui = new PieceGui(image, pieceColor);
 		}
 
 		return pieceGui;

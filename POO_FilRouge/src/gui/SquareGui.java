@@ -23,6 +23,17 @@ import nutsAndBolts.PieceSquareColor;
 class SquareGui extends BorderPane implements CheckersSquareGui {
 
 	// ToDo Atelier 2
+	private PieceSquareColor squareColor;
+	
+	public SquareGui (PieceSquareColor c)
+	{
+		super();
+		this.squareColor = c;
+		
+		Color color = PieceSquareColor.BLACK.equals(c) ? GuiConfig.CASEBLACK : GuiConfig.CASEWHITE;
+		setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+		setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+	}
 
 	/**
 	 *Retourne l'indice du carré sur la grille (N° de 0 à 99)
@@ -34,5 +45,4 @@ class SquareGui extends BorderPane implements CheckersSquareGui {
 		index = parent.getChildren().indexOf(this);
 		return index;
 	}
-
 }

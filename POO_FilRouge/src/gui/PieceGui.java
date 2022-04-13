@@ -15,7 +15,14 @@ import nutsAndBolts.PieceSquareColor;
 public class PieceGui extends ImageView implements CheckersPieceGui {
 	
 	// ToDo Atelier 2
+	private PieceSquareColor color;
 	
+	
+	public PieceGui(Image img, PieceSquareColor c)
+	{
+		color = c;
+		setImage(img);
+	}
 	
 	
 	@Override
