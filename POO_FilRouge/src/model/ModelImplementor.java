@@ -74,6 +74,11 @@ public class ModelImplementor {
 		List<Coord> coordsOnItinerary = null;
 		
 		// TODO Atelier 2
+		PieceModel initPiece = findPiece(initCoord);
+		if (initPiece == null) 
+			return null;
+			
+		coordsOnItinerary = initPiece.getCoordsOnItinerary(targetCoord);
 		
 		return coordsOnItinerary;
 	}

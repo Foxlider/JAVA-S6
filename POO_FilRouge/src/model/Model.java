@@ -133,9 +133,30 @@ public class Model implements BoardGame<Coord> {
 	 * ou pas de pièce à prendre
 	 */
 	private boolean isThereMaxOnePieceOnItinerary(Coord toMovePieceCoord, Coord targetSquareCoord) {
-		boolean isThereMaxOnePieceOnItinerary = true; // TODO Atelier 2 - initialiser à false
+		boolean isThereMaxOnePieceOnItinerary = false; // TODO Atelier 2 - initialiser à false
 
 		// TODO Atelier 2
+		List<Coord> coordsOnItinerary = implementor.getCoordsOnItinerary(toMovePieceCoord, targetSquareCoord);
+
+		if (coordsOnItinerary == null)
+			return false;
+		 
+
+		int count = 0;
+		Coord potentialToCapturePieceCoord = null;
+		for (Coord coordOnItinerary : coordsOnItinerary) 
+		{
+			if (!implementor.isPiecehere(coordOnItinerary)) 
+				continue;
+			
+			count++;
+			potentialToCapturePieceCoord = coordOnItinerary;
+		}
+
+		if (count == 0 || (count == 1 
+						&& currentGamerColor 
+						!= implementor.getPieceColor(potentialToCapturePieceCoord))) 
+		{ isThereMaxOnePieceOnItinerary = true; }
 
 		return isThereMaxOnePieceOnItinerary;
 	}
@@ -149,6 +170,26 @@ public class Model implements BoardGame<Coord> {
 		Coord toCapturePieceCoord = null;
 
 		// TODO Atelier 2
+		List<Coord> coordsOnItinerary = implementor.getCoordsOnItinerary(toMovePieceCoord, targetSquareCoord);
+
+		if (coordsOnItinerary == null)
+			return null; 
+
+		int count = 0;
+		Coord potentialToCapturePieceCoord = null;
+		for (Coord coordOnItinerary : coordsOnItinerary) 
+		{
+			if (!implementor.isPiecehere(coordOnItinerary))
+				continue;
+			
+			count++;
+			potentialToCapturePieceCoord = coordOnItinerary;
+		}
+
+		if (count == 0 	|| 	(count == 1 
+						  && currentGamerColor 
+						  != implementor.getPieceColor(potentialToCapturePieceCoord))) 
+		{ toCapturePieceCoord = potentialToCapturePieceCoord; }
 
 		return toCapturePieceCoord;
 	}
